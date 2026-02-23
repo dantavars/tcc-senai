@@ -70,14 +70,14 @@ app.post("/criar-multa", async (req, res) => {
 
     try {
 
-        // 1️⃣ procura o usuário pelo CPF
+        // 1️procura o usuário pelo CPF
         const usuario = await Usuario.findOne({ cpf: req.body.cpf })
 
         if (!usuario) {
             return res.send("Usuário não encontrado")
         }
 
-        // 2️⃣ cria multa vinculada ao _id
+        // 2️cria multa vinculada ao _id
         const novaMulta = new Multa({
             usuarioId: usuario._id,
             descricao: req.body.descricao,
