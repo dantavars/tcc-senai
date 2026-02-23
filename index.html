@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Mobile</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="phone">
+  <div class="screen-wrapper">
+
+    <!-- LOGIN -->
+    <section id="login" class="screen active">
+        <div class="container">
+            <div class="center">
+                <img src="assets/logoprfpng-removebg-preview.png" class="logo-prf">
+
+                <input type="text" placeholder="CPF">
+                <input type="password" placeholder="Senha">
+
+                <button onclick="goTo('dashboard')" class="primary">Entrar</button>
+
+                <button class="btn-gov">
+                    Entrar com gov.br
+                </button>
+            </div>
+
+            <div class="gov-footer">
+                <img src="assets/governodobrasil.png" alt="Governo do Brasil">
+            </div>
+        </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="screen interna">
+
+        <div class="header">
+            <span class="back" onclick="goTo('login')">←</span>
+            <h2>Portal do Cidadão</h2>
+        </div>
+
+        <div class="container">
+
+            <div class="card">
+                <div class="vehicle">
+                    <strong>NDS-9513</strong>
+                </div>
+
+                <div class="info">
+                    <p>Renavam: 987654321100</p>
+                    <p>Motivo: Licenciamento vencido</p>
+                    <p>Data: 17/04/2024</p>
+                </div>
+
+                <button class="btn-detalhes" onclick="goTo('detalhes')">
+                    Ver detalhes >
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>Custos:</h3>
+
+                <div class="linha">
+                    <span>Guincho:</span>
+                    <strong>R$ 250,00</strong>
+                </div>
+
+                <div class="linha">
+                    <span>Diárias:</span>
+                    <strong>R$ 500,00</strong>
+                </div>
+
+                <div class="linha total">
+                    <span>Total:</span>
+                    <strong>R$ 750,00</strong>
+                </div>
+
+                <button class="btn-regularizar">Regularizar</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DETALHES -->
+    <section id="detalhes" class="screen interna">
+
+        <div class="header">
+            <span class="back" onclick="goTo('dashboard')">←</span>
+            <h2>Detalhes do Veículo</h2>
+        </div>
+
+        <div class="container">
+
+            <div class="card">
+                <div class="placa-box">
+                    <div class="placa">NDS-9513</div>
+                </div>
+
+                <div class="linha-info">
+                    <span>Renavam</span>
+                    <strong>987654321100</strong>
+                </div>
+
+                <div class="linha-info">
+                    <span>Marca/Modelo</span>
+                    <strong>Toyota Corolla 2020</strong>
+                </div>
+
+                <div class="linha-info">
+                    <span>Cor</span>
+                    <strong>Branco</strong>
+                </div>
+
+                <div class="linha-info">
+                    <span>Status</span>
+                    <strong class="status">Licenciamento vencido</strong>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Motivo da Retenção</h3>
+                <p class="motivo">Licenciamento vencido</p>
+                <p>Data: 17/04/2024 às 11:45</p>
+            </div>
+
+            <div class="card">
+                <h3>Localização do Pátio</h3>
+                <p>Rua das Estradas, 1250 - Centro, Brasília/DF</p>
+            </div>
+
+            <div class="card">
+                <h3>Documentos</h3>
+
+                <div class="doc">
+                    <span>CRLV-e 2024.pdf</span>
+                    <button class="btn-download">Baixar</button>
+                </div>
+
+                <div class="doc">
+                    <span>Auto de Infração.pdf</span>
+                    <button class="btn-download">Baixar</button>
+                </div>
+            </div>
+
+            <button class="btn-voltar" onclick="goTo('dashboard')">
+                Voltar
+            </button>
+
+        </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
