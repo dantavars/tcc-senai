@@ -11,27 +11,67 @@
 <div class="phone">
   <div class="screen-wrapper">
 
-    <!-- LOGIN -->
-    <section id="login" class="screen active">
-        <div class="container">
-            <div class="center">
-                <img src="assets/logoprfpng-removebg-preview.png" class="logo-prf">
+<section id="registro" class="screen">
 
-                <input type="text" placeholder="CPF">
-                <input type="password" placeholder="Senha">
+  <div class="container">
+    <div class="center">
 
-                <button onclick="goTo('dashboard')" class="primary">Entrar</button>
+      <h2>Criar Conta</h2>
 
-                <button class="btn-gov">
-                    Entrar com gov.br
-                </button>
-            </div>
+      <input type="text" id="nome" placeholder="Nome">
+      <input type="text" id="sobrenome" placeholder="Sobrenome">
+      <input type="text" id="cpfRegistro" placeholder="CPF">
+      <input type="password" id="senhaRegistro" placeholder="Senha">
 
-            <div class="gov-footer">
-                <img src="assets/governodobrasil.png" alt="Governo do Brasil">
-            </div>
+      <button onclick="fazerRegistro()" class="primary">
+        Registrar
+      </button>
+
+      <button onclick="goTo('login')">
+        Voltar
+      </button>
+
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+
+
+<!-- LOGIN -->
+<section id="login" class="screen active">
+    <div class="container">
+        <div class="center">
+            <img src="assets/logoprfpng-removebg-preview.png" class="logo-prf">
+
+            <input type="text" id="cpf" placeholder="CPF">
+            <input type="password" id="senha" placeholder="Senha">
+
+            <!-- BOTÃO ENTRAR -->
+            <button onclick="fazerLogin()" class="primary">
+                Entrar
+            </button>
+
+            <!-- BOTÃO CRIAR CONTA -->
+            <button onclick="goTo('registro')">
+                Criar conta
+            </button>
+
+            <!-- BOTÃO GOV -->
+            <button class="btn-gov">
+                Entrar com gov.br
+            </button>
         </div>
-    </section>
+
+        <div class="gov-footer">
+            <img src="assets/governodobrasil.png" alt="Governo do Brasil">
+        </div>
+    </div>
+</section>
 
     <!-- DASHBOARD -->
     <section id="dashboard" class="screen interna">
