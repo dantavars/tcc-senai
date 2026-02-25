@@ -56,12 +56,52 @@ const MultaSchema = mongoose.Schema({
         required: true
     },
 
-    descricao: String,
-    valor: Number,
+    placa: {
+        type: String,
+        required: true
+    },
+
+    renavam: {
+        type: String,
+        required: true
+    },
+
+    motivo: {
+        type: String,
+        required: true
+    },
+
+    data: {
+        type: Date,
+        default: Date.now
+    },
+
+    guincho: {
+        type: Number,
+        required: true
+    },
+
+    diarias: {
+        type: Number,
+        required: true
+    },
+
+    modelo: {
+        type: String,
+        required: true
+    },
+
+    cor: {
+        type: String,
+        required: true
+    },
+
     status: {
         type: String,
         default: "pendente"
     }
+
+
 
 })
 
@@ -71,26 +111,33 @@ app.post("/criar-multa", async (req, res) => {
 
     try {
 
-        // 1️procura o usuário pelo CPF
         const usuario = await Usuario.findOne({ cpf: req.body.cpf })
 
         if (!usuario) {
-            return res.send("Usuário não encontrado")
+            return res.json({ erro: "Usuário não encontrado" })
         }
 
-        // 2️cria multa vinculada ao _id
         const novaMulta = new Multa({
+
             usuarioId: usuario._id,
-            descricao: req.body.descricao,
-            valor: req.body.valor
+            placa: req.body.placa,
+            renavam: req.body.renavam,
+            motivo: req.body.motivo,
+            guincho: req.body.guincho,
+            diarias: req.body.diarias,
+            modelo: req.body.modelo,
+            cor: req.body.cor
+
         })
 
         await novaMulta.save()
 
-        res.send("Multa criada com sucesso!")
+        res.json({ sucesso: true })
 
     } catch (err) {
-        res.send("Erro ao criar multa: " + err)
+
+        res.json({ erro: err.message })
+
     }
 
 })
@@ -164,6 +211,26 @@ app.post("/login", async (req, res) => {
     }
 
 })
+
+async function criarMultaPorCpf(cpf, descricao, valor) {
+
+    const usuario = await Usuario.findOne({ cpf })
+
+    if (!usuario) {
+        console.log("Usuário não encontrado")
+        return
+    }
+
+    const novaMulta = new Multa({
+        usuarioId: usuario._id,
+        descricao,
+        valor
+    })
+
+    await novaMulta.save()
+
+    console.log("Multa criada com sucesso!")
+}
 
 const PORT = 8081
 app.listen(PORT, () => {

@@ -287,3 +287,40 @@ button {
 .btn-download:hover {
     background: #e0e7ff;
 }
+
+/* ocupa a tela inteira do "celular" */
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;  /* horizontal */
+    align-items: center;      /* vertical */
+}
+
+/* organiza os inputs e botões */
+.center {
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+#dashboard .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#listaMultas {
+    flex: 1; /* ocupa todo espaço disponível */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sem-multa {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
