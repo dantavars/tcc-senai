@@ -142,9 +142,15 @@ button {
 /* TELAS INTERNAS */
 /* ============================= */
 
-.interna {
+.screen.interna {
+    flex: 1;
     overflow-y: auto;
 }
+
+.interna .container {
+    padding-bottom: 40px;
+}
+
 
 /* HEADER apenas internas */
 
@@ -272,28 +278,21 @@ button {
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(224,168,0,0.3);
 }
-.btn-download {
-    padding: 4px 10px;          /* menor */
-    font-size: 12px;            /* texto menor */
-    border-radius: 6px;         /* mais minimalista */
-    background: #eef2ff;        /* leve azul suave */
-    color: #1d3f8b;
-    border: 1px solid #dbe4ff;  /* borda leve */
-    cursor: pointer;
-    font-weight: 500;
-    transition: 0.2s;
-}
 
-.btn-download:hover {
-    background: #e0e7ff;
-}
 
 /* ocupa a tela inteira do "celular" */
+/* Container padrão (telas internas podem crescer e rolar) */
 .container {
+    padding-bottom: 20px;
+}
+
+/* Centralização apenas nas telas de formulário */
+#login .container,
+#registro .container {
     height: 100%;
     display: flex;
-    justify-content: center;  /* horizontal */
-    align-items: center;      /* vertical */
+    justify-content: center;
+    align-items: center;
 }
 
 /* organiza os inputs e botões */
@@ -324,3 +323,31 @@ button {
     font-weight: bold;
     font-size: 16px;
 }
+
+.btn-download {
+    background: #eef2ff;
+    color: #1d3f8b;
+    border: 1px solid #dbe4ff;
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.2s ease;
+    display: inline-block;
+}
+
+.btn-download:hover {
+    background: #e0e7ff;
+    transform: translateY(-1px);
+}
+
+.btn-download:active {
+    transform: scale(0.96);
+}
+
+
+
+
