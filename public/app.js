@@ -8,6 +8,8 @@ function goTo(id) {
     document.getElementById(id).classList.add('active');
 }
 
+const API_URL = "https://tcc-senai-iub1.onrender.com"
+
 
 async function fazerLogin() {
 
@@ -22,16 +24,16 @@ async function fazerLogin() {
         cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
         cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
         
-        const resposta = await fetch("http://localhost:3000/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                cpf: cpf,
-                senha: senha
-            })
-        })
+        const resposta = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        cpf: cpf,
+        senha: senha
+    })
+})
 
         const dados = await resposta.json()
 
@@ -79,18 +81,18 @@ async function fazerRegistro() {
 
     try {
 
-        const resposta = await fetch("http://localhost:3000/registro", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nome: nome,
-                sobrenome: sobrenome,
-                cpf: cpf,
-                senha: senha
-            })
-        })
+        const resposta = await fetch(`${API_URL}/registro`, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        nome: nome,
+        sobrenome: sobrenome,
+        cpf: cpf,
+        senha: senha
+    })
+})
 
         const dados = await resposta.json()
 
