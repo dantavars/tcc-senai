@@ -16,7 +16,7 @@ app.use(express.static("public"));
 
 
 // Configurando o mongoose
-mongoose.connect("mongodb://127.0.0.1:27017/aprendendo")
+mongoose.connect("mongodb+srv://dantavars2:danilex12345@tcc.wzgqrad.mongodb.net/aprendendo?retryWrites=true&w=majority")
 .then(() => {
     console.log("MongoDB Conectado...")
 })
