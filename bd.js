@@ -4,10 +4,12 @@ const mongoose = require("mongoose")
 const cors = require('cors')
 const app = express()
 
+
 //body parser 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
+app.use(express.static("public"));
 
 
 

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Mobile</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="phone">
+  <div class="screen-wrapper">
+
+<section id="registro" class="screen">
+
+  <div class="container">
+    <div class="center">
+
+      <h2>Criar Conta</h2>
+
+      <input type="text" id="nome" placeholder="Nome">
+      <input type="text" id="sobrenome" placeholder="Sobrenome">
+      <input type="text" id="cpfRegistro" placeholder="CPF" oninput="formatarCPF(this)">
+      <input type="password" id="senhaRegistro" placeholder="Senha">
+
+      <button onclick="fazerRegistro()" class="primary">
+        Registrar
+      </button>
+
+      <button onclick="goTo('login')">
+        Voltar
+      </button>
+
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+
+
+<!-- LOGIN -->
+<section id="login" class="screen active">
+    <div class="container">
+        <div class="center">
+            <img src="assets/logoprfpng-removebg-preview.png" class="logo-prf">
+
+            <input type="text" id="cpf" placeholder="CPF" oninput="formatarCPF(this)">
+            <input type="password" id="senha" placeholder="Senha">
+
+            <!-- BOTÃO ENTRAR -->
+            <button onclick="fazerLogin()" class="primary">
+                Entrar
+            </button>
+
+            <!-- BOTÃO CRIAR CONTA -->
+            <button onclick="goTo('registro')" class="btn-regularizar">
+    Criar conta
+</button>
+
+            <!-- BOTÃO GOV -->
+            <button class="btn-gov">
+                Entrar com gov.br
+            </button>
+        </div>
+
+        <div class="gov-footer">
+            <img src="assets/governodobrasil.png" alt="Governo do Brasil">
+        </div>
+    </div>
+</section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="screen interna">
+
+        <div class="header">
+            <span class="back" onclick="goTo('login')">←</span>
+            <h2>Portal do Cidadão</h2>
+        </div>
+
+        <div class="container">
+
+            <div id="listaMultas"></div>
+
+        </div>
+    </section>
+
+    <!-- DETALHES -->
+    <!-- DETALHES -->
+<section id="detalhes" class="screen interna">
+
+    <div class="header">
+        <span class="back" onclick="goTo('dashboard')">←</span>
+        <h2>Detalhes do Veículo</h2>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="placa-box">
+                <div class="placa" id="detalhePlaca"></div>
+            </div>
+
+            <div class="linha-info">
+                <span>Renavam</span>
+                <strong id="detalheRenavam"></strong>
+            </div>
+
+            <div class="linha-info">
+                <span>Marca/Modelo</span>
+                <strong id="detalheModelo"></strong>
+            </div>
+
+            <div class="linha-info">
+                <span>Cor</span>
+                <strong id="detalheCor"></strong>
+            </div>
+
+            <div class="linha-info">
+                <span>Status</span>
+                <strong id="detalheStatus" class="status"></strong>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h3>Motivo da Retenção</h3>
+            <p class="motivo" id="detalheMotivo"></p>
+            <p id="detalheData"></p>
+        </div>
+
+        <div class="card">
+            <h3>Localização do Pátio</h3>
+            <p>Rua José Veloso, 417, Loteamento Maria Gil de Medeiros, Bairro Jardim das Oliveiras, Picos-PI, CEP 64600-00, Picos/PI</p>
+        </div>
+
+        <div class="card">
+            <h3>Documentos</h3>
+
+            <div class="doc-item">
+                <span>CRLV-e 2024.pdf</span>
+                <a href="assets/CRLV-e-2024.pdf" download class="btn-download">
+                    Baixar
+                </a>
+            </div>
+
+            <div class="doc-item">
+                <span>Auto de Infração.pdf</span>
+                <a href="assets/Auto-de-Infracao.pdf" download class="btn-download">
+                    Baixar
+                </a>
+            </div>
+        </div>
+
+        <button class="btn-voltar" onclick="goTo('dashboard')">
+            Voltar
+        </button>
+
+    </div>
+
+</section>
+
+
+
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
