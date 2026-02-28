@@ -43,7 +43,7 @@ const UsuarioSchema = mongoose.Schema({
    senha: {
     type: String,
     required: true,
-    minlength: 8
+    minlength: [8, "A senha deve ter no mínimo 8 caracteres"]
     }
 })
 
@@ -114,9 +114,9 @@ app.post("/criar-multa", async (req, res) => {
 
     try {
 
-        const cpfLimpo = req.body.cpf.replace(/\D/g, "")
+    
 
-        const usuario = await Usuario.findOne({ cpf: cpfLimpo })
+        const usuario = await Usuario.findOne({ cpf: req.body.cpf })
 
         if (!usuario) {
             return res.json({ erro: "Usuário não encontrado" })
@@ -152,44 +152,50 @@ app.post("/registro", async (req, res) => {
 
     try {
 
-        const cpfLimpo = req.body.cpf.replace(/\D/g, "")
+        const existe = await Usuario.findOne({ cpf: req.body.cpf })
 
-        const existe = await Usuario.findOne({ cpf: cpfLimpo })
-
-        if(existe){
-            return res.send("CPF já registrado")
+        if (existe) {
+            return res.json({
+                sucesso: false,
+                mensagem: "CPF já registrado"
+            })
         }
 
-        if (/\d/.test(req.body.nome)) {
-        return res.json({ erro: "Nome não pode conter números" })
-    }
-
-        if (/\d/.test(req.body.sobrenome)) {
-        return res.json({ erro: "Sobrenome não pode conter números" })
-    }
-
-        if (!req.body.senha || req.body.senha.length < 8) {
-        return res.json({
-        erro: "A senha deve ter no mínimo 8 caracteres"
-    })
-}
-
         const novoUsuario = new Usuario({
-        nome: req.body.nome,
-        sobrenome: req.body.sobrenome,
-        cpf: cpfLimpo,
-        senha: req.body.senha
-})
+            nome: req.body.nome,
+            sobrenome: req.body.sobrenome,
+            cpf: req.body.cpf,
+            senha: req.body.senha
+        })
 
         await novoUsuario.save()
 
-        res.send("Usuário registrado com sucesso")
+        res.json({
+            sucesso: true,
+            mensagem: "Usuário registrado com sucesso"
+        })
 
-    } catch(err){
-        res.send("Erro: " + err)
+    } catch (err) {
+
+    if (err.name === "ValidationError") {
+
+        // pega só o erro da senha
+        const erros = Object.values(err.errors).map(e => e.message)
+
+        return res.json({
+            sucesso: false,
+            mensagem: erros.join(" | ")
+        })
+    }
+
+    return res.json({
+        sucesso: false,
+        mensagem: "Erro no servidor"
+    })  
     }
 
 })
+
 
 
 // rota login
@@ -197,10 +203,10 @@ app.post("/login", async (req, res) => {
 
     try {
 
-        const cpfLimpo = req.body.cpf.replace(/\D/g, "")
+        
 
         const usuario = await Usuario.findOne({
-        cpf: cpfLimpo,
+        cpf: req.body.cpf,
         senha: req.body.senha
     })
 
@@ -236,9 +242,10 @@ app.post("/login", async (req, res) => {
 })
 
 
-const PORT = 8081
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-    console.log("Servidor rodando na porta 8081")
-})
+  console.log("Servidor rodando na porta " + PORT);
+});
 
 

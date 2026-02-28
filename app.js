@@ -11,12 +11,18 @@ function goTo(id) {
 
 async function fazerLogin() {
 
-    const cpf = document.getElementById("cpf").value
+    let cpf = document.getElementById("cpf").value
     const senha = document.getElementById("senha").value
 
     try {
 
-        const resposta = await fetch("http://localhost:8081/login", {
+        cpf = cpf.replace(/\D/g, "")
+
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+        
+        const resposta = await fetch("http://localhost:3000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -58,12 +64,22 @@ async function fazerRegistro() {
 
     const nome = document.getElementById("nome").value
     const sobrenome = document.getElementById("sobrenome").value
-    const cpf = document.getElementById("cpfRegistro").value
+    let cpf = document.getElementById("cpfRegistro").value
     const senha = document.getElementById("senhaRegistro").value
+
+    cpf = cpf.replace(/\D/g, "")
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+
+    if (senha.length < 8) {
+    alert("A senha deve ter no mínimo 8 caracteres")
+    return
+}
 
     try {
 
-        const resposta = await fetch("http://localhost:8081/registro", {
+        const resposta = await fetch("http://localhost:3000/registro", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -76,13 +92,13 @@ async function fazerRegistro() {
             })
         })
 
-        const texto = await resposta.text()
+        const dados = await resposta.json()
 
-        alert(texto)
+        alert(dados.mensagem)
 
-        if (texto.includes("sucesso")) {
-            goTo("login")
-        }
+        if (dados.sucesso) {
+        goTo("login")
+    }
 
     } catch (erro) {
         alert("Erro ao registrar")
