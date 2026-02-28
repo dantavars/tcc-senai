@@ -27,11 +27,13 @@ const UsuarioSchema = mongoose.Schema({
     
     nome: {
         type: String,
-        required: true 
+        required: true,
+        match: [/^[A-Za-zÀ-ÿ\s]+$/, "Nome não pode conter números"] 
     },
     sobrenome: {
         type: String,
-        required: true 
+        required: true,
+        match: [/^[A-Za-zÀ-ÿ\s]+$/, "Sobrenome não pode conter números"]
     },
     cpf: {
         type: String,
@@ -157,6 +159,14 @@ app.post("/registro", async (req, res) => {
         if(existe){
             return res.send("CPF já registrado")
         }
+
+        if (/\d/.test(req.body.nome)) {
+        return res.json({ erro: "Nome não pode conter números" })
+    }
+
+        if (/\d/.test(req.body.sobrenome)) {
+        return res.json({ erro: "Sobrenome não pode conter números" })
+    }
 
         if (!req.body.senha || req.body.senha.length < 8) {
         return res.json({
