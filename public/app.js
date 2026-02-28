@@ -20,6 +20,11 @@ async function fazerLogin() {
 
         cpf = cpf.replace(/\D/g, "")
 
+        if (cpf.length !== 11) {
+        alert("CPF inválido. O CPF deve conter 11 números.")
+        return
+    }
+
         cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
         cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
         cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
@@ -70,6 +75,11 @@ async function fazerRegistro() {
     const senha = document.getElementById("senhaRegistro").value
 
     cpf = cpf.replace(/\D/g, "")
+
+    if (cpf.length !== 11) {
+    alert("CPF inválido. O CPF deve conter 11 números.")
+    return
+}
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
     cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
