@@ -20,7 +20,7 @@
 
       <input type="text" id="nome" placeholder="Nome">
       <input type="text" id="sobrenome" placeholder="Sobrenome">
-      <input type="text" id="cpfRegistro" placeholder="CPF">
+      <input type="text" id="cpfRegistro" placeholder="CPF" oninput="formatarCPF(this)">
       <input type="password" id="senhaRegistro" placeholder="Senha">
 
       <button onclick="fazerRegistro()" class="primary">
@@ -48,7 +48,7 @@
         <div class="center">
             <img src="assets/logoprfpng-removebg-preview.png" class="logo-prf">
 
-            <input type="text" id="cpf" placeholder="CPF">
+            <input type="text" id="cpf" placeholder="CPF" oninput="formatarCPF(this)">
             <input type="password" id="senha" placeholder="Senha">
 
             <!-- BOTÃO ENTRAR -->

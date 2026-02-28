@@ -40,7 +40,8 @@ const UsuarioSchema = mongoose.Schema({
     },
    senha: {
     type: String,
-    required: true 
+    required: true,
+    minlength: 8
     }
 })
 
@@ -111,7 +112,9 @@ app.post("/criar-multa", async (req, res) => {
 
     try {
 
-        const usuario = await Usuario.findOne({ cpf: req.body.cpf })
+        const cpfLimpo = req.body.cpf.replace(/\D/g, "")
+
+        const usuario = await Usuario.findOne({ cpf: cpfLimpo })
 
         if (!usuario) {
             return res.json({ erro: "Usuário não encontrado" })
@@ -147,18 +150,26 @@ app.post("/registro", async (req, res) => {
 
     try {
 
-        const existe = await Usuario.findOne({ cpf: req.body.cpf })
+        const cpfLimpo = req.body.cpf.replace(/\D/g, "")
+
+        const existe = await Usuario.findOne({ cpf: cpfLimpo })
 
         if(existe){
             return res.send("CPF já registrado")
         }
 
+        if (!req.body.senha || req.body.senha.length < 8) {
+        return res.json({
+        erro: "A senha deve ter no mínimo 8 caracteres"
+    })
+}
+
         const novoUsuario = new Usuario({
-            nome: req.body.nome,
-            sobrenome: req.body.sobrenome,
-            cpf: req.body.cpf,
-            senha: req.body.senha
-        })
+        nome: req.body.nome,
+        sobrenome: req.body.sobrenome,
+        cpf: cpfLimpo,
+        senha: req.body.senha
+})
 
         await novoUsuario.save()
 
@@ -176,10 +187,12 @@ app.post("/login", async (req, res) => {
 
     try {
 
+        const cpfLimpo = req.body.cpf.replace(/\D/g, "")
+
         const usuario = await Usuario.findOne({
-            cpf: req.body.cpf,
-            senha: req.body.senha
-        })
+        cpf: cpfLimpo,
+        senha: req.body.senha
+    })
 
         if (!usuario) {
 
@@ -212,25 +225,6 @@ app.post("/login", async (req, res) => {
 
 })
 
-async function criarMultaPorCpf(cpf, descricao, valor) {
-
-    const usuario = await Usuario.findOne({ cpf })
-
-    if (!usuario) {
-        console.log("Usuário não encontrado")
-        return
-    }
-
-    const novaMulta = new Multa({
-        usuarioId: usuario._id,
-        descricao,
-        valor
-    })
-
-    await novaMulta.save()
-
-    console.log("Multa criada com sucesso!")
-}
 
 const PORT = 8081
 app.listen(PORT, () => {
