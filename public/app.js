@@ -3,9 +3,13 @@ let multasSalvas = []
 function goTo(id) {
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
+        screen.scrollTop = 0; 
     });
 
-    document.getElementById(id).classList.add('active');
+    const novaTela = document.getElementById(id);
+    novaTela.classList.add('active');
+
+    novaTela.scrollTop = 0; 
 }
 
 
@@ -263,31 +267,34 @@ function confirmarPagamento() {
 
 function selecionarPagamento() {
 
-    const tipo = document.querySelector('input[name="pagamento"]:checked').value
+    const tipo = document.querySelector('input[name="pagamento"]:checked').value;
 
-    document.getElementById("areaCartao").style.display =
-        tipo === "cartao" ? "block" : "none"
+    const areaCartao = document.getElementById("areaCartao");
+    const areaPix = document.getElementById("areaPix");
+    const areaBoleto = document.getElementById("areaBoleto");
+    const btnConfirmar = document.getElementById("wrapperConfirmar");
 
-    document.getElementById("areaPix").style.display =
-        tipo === "pix" ? "block" : "none"
+    // Esconde tudo primeiro
+    areaCartao.style.display = "none";
+    areaPix.style.display = "none";
+    areaBoleto.style.display = "none";
+
+    // Mostra botão por padrão
+    btnConfirmar.style.display = "flex";
 
     if (tipo === "cartao") {
+        areaCartao.style.display = "block";
+        btnConfirmar.style.display = "flex"; // aparece só no cartão
+    }
 
-        const campo = document.getElementById("numeroCartao")
+    if (tipo === "pix") {
+        areaPix.style.display = "block";
+        btnConfirmar.style.display = "none"; // esconde no PIX
+    }
 
-        campo.addEventListener("input", function(e) {
-
-            let valor = e.target.value.replace(/\D/g, "")
-
-            if (valor.length > 16) {
-                valor = valor.slice(0, 16)
-            }
-
-            valor = valor.replace(/(\d{4})(?=\d)/g, "$1 ")
-
-            e.target.value = valor
-        })
-
+    if (tipo === "boleto") {
+        areaBoleto.style.display = "block";
+        btnConfirmar.style.display = "none"; // esconde no BOLETO
     }
 }
 
