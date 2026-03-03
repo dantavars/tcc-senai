@@ -348,6 +348,106 @@ button {
     transform: scale(0.96);
 }
 
+.btn-confirmar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
 
+.btn-confirmar {
+    width: 80%;
+}
+/* ============================= */
+/* TELA DE SUCESSO PROFISSIONAL */
+/* ============================= */
 
+.sucesso-screen {
+    background: linear-gradient(135deg, #e8f5e9, #ffffff);
+}
+
+.sucesso-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.sucesso-card {
+    width: 100%;
+    max-width: 320px;
+    background: white;
+    padding: 35px 25px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.sucesso-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    background: #2e7d32;
+    color: white;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.sucesso-card h2 {
+    margin-bottom: 10px;
+    color: #1b5e20;
+}
+
+.sucesso-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.sucesso-card .primary {
+    margin-top: 20px;
+    width: 100%;
+}
+/* ============================= */
+/* ESTILO PAGAMENTO PROFISSIONAL */
+/* ============================= */
+
+.pagamento-card h3 {
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #e3e8f0;
+    background: #f9fafc;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+    background: white;
+    border-color: #2e4b87;
+    box-shadow: 0 0 0 3px rgba(46,75,135,0.1);
+}
+
+/* Linha para validade e CVV lado a lado */
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.input-row .input-group {
+    flex: 1;
+}
 
