@@ -156,9 +156,130 @@
             </div>
         </div>
 
+            
+
         <button class="btn-voltar" onclick="goTo('dashboard')">
             Voltar
         </button>
+
+    </div>
+
+</section>
+
+                <!-- ================= REGULARIZAÇÃO ================= -->
+        <section id="regularizacao" class="screen interna">
+
+            <div class="header">
+                <span class="back" onclick="goTo('detalhes')">←</span>
+                <h2>Regularização</h2>
+            </div>
+
+            <div class="container">
+
+                <div class="card">
+                    <h3>Resumo de Custos</h3>
+
+                    <div class="linha-info">
+                        <span>Guincho</span>
+                        <strong>R$ 250,00</strong>
+                    </div>
+
+                    <div class="linha-info">
+                        <span>Diárias (5 dias)</span>
+                        <strong>R$ 500,00</strong>
+                    </div>
+
+                    <div class="linha-info total">
+                        <span>Total</span>
+                        <strong>R$ 750,00</strong>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Forma de Pagamento</h3>
+
+                    <label>
+                        <input type="radio" name="pagamento" value="cartao" checked onchange="selecionarPagamento()">
+                        Cartão de Crédito
+                    </label>
+
+                    <label>
+                        <input type="radio" name="pagamento" value="pix" onchange="selecionarPagamento()">
+                        PIX
+                    </label>
+
+                    <label>
+                        <input type="radio" name="pagamento" value="boleto" onchange="selecionarPagamento()">
+                        Boleto
+                    </label>
+                </div>
+
+                <!-- CARTÃO -->
+                <div class="card pagamento-card" id="areaCartao">
+
+    <h3>Dados do Cartão</h3>
+
+    <div class="input-group">
+        <input type="text" id="numeroCartao" maxlength="19" placeholder="Número do Cartão">
+    </div>
+
+    <div class="input-row">
+        <div class="input-group">
+            <input type="text" id="validadeCartao" maxlength="5" placeholder="MM/AA">
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="cvvCartao" maxlength="3" placeholder="CVV">
+        </div>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="nomeCartao" placeholder="Nome no Cartão">
+    </div>
+
+</div>
+
+                <!-- PIX -->
+                <div class="card" id="areaPix" style="display:none;">
+                    <h3>Pagamento via PIX</h3>
+
+                    <img src="assets/qrcode.png" alt="QR Code PIX" style="width:180px; margin:10px auto; display:block;">
+
+                    <textarea readonly style="width:100%; height:60px;">
+00020126580014BR.GOV.BCB.PIX0136chavepix@empresa.gov.br5204000053039865405750.005802BR5913PRF OFICIAL6009BRASILIA62070503***
+                    </textarea>
+                </div>
+
+               <div class="btn-confirmar-wrapper">
+    <button class="primary btn-confirmar" onclick="confirmarPagamento()">
+        Confirmar Pagamento
+    </button>
+</div>
+
+            </div>
+        </section>
+
+        <!-- ================= SUCESSO ================= -->
+       <section id="sucesso" class="screen interna sucesso-screen">
+
+    <div class="sucesso-container">
+
+        <div class="sucesso-card">
+
+            <div class="sucesso-icon">
+                ✔
+            </div>
+
+            <h2>Pagamento Confirmado</h2>
+
+            <p>Seu pagamento foi processado com sucesso.</p>
+            <p>O veículo poderá ser retirado no pátio informado.</p>
+
+            <button class="primary" onclick="goTo('dashboard')">
+                Voltar ao Início
+            </button>
+
+        </div>
 
     </div>
 

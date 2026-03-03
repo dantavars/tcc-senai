@@ -68,14 +68,23 @@ async function fazerRegistro() {
     const senha = document.getElementById("senhaRegistro").value
 
     cpf = cpf.replace(/\D/g, "")
+
+    
+    if (cpf.length !== 11) {
+        alert("CPF deve conter 11 números")
+        return
+    }
+    
+    if (senha.length < 8) {
+        alert("A senha deve ter no mínimo 8 caracteres")
+        return
+    }
+    
+    cpf = cpf.replace(/\D/g, "")
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
     cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
 
-    if (senha.length < 8) {
-    alert("A senha deve ter no mínimo 8 caracteres")
-    return
-}
 
     try {
 
@@ -148,7 +157,7 @@ container.innerHTML = `
     <p>Diárias: <strong>R$ ${multa.diarias.toFixed(2)}</strong></p>
     <p>Total: <strong>R$ ${(multa.guincho + multa.diarias).toFixed(2)}</strong></p>
 
-    <button class="btn-regularizar">
+    <button class="btn-regularizar" onclick="abrirRegularizacao(${index})">
         Regularizar
     </button>
 </div>
@@ -196,3 +205,159 @@ function formatarCPF(input) {
 
     input.value = valor
 }
+
+function abrirRegularizacao(index) {
+
+    const multa = multasSalvas[index]
+
+    const total = multa.guincho + multa.diarias
+
+    // Atualiza valores na tela
+    document.querySelectorAll("#regularizacao .linha-info strong")[0].innerText =
+        `R$ ${multa.guincho.toFixed(2)}`
+
+    document.querySelectorAll("#regularizacao .linha-info strong")[1].innerText =
+        `R$ ${multa.diarias.toFixed(2)}`
+
+    document.querySelectorAll("#regularizacao .linha-info strong")[2].innerText =
+        `R$ ${total.toFixed(2)}`
+
+    goTo("regularizacao")
+}
+
+function confirmarPagamento() {
+
+    const tipo = document.querySelector('input[name="pagamento"]:checked').value
+
+    if (tipo === "cartao") {
+
+        const numero = document.getElementById("numeroCartao").value.replace(/\s/g, "")
+        const validade = document.getElementById("validadeCartao").value
+        const cvv = document.getElementById("cvvCartao").value
+        const nome = document.getElementById("nomeCartao").value
+
+        if (numero.length !== 16) {
+            alert("O cartão deve ter 16 dígitos")
+            return
+        }
+
+        if (!/^\d{2}\/\d{2}$/.test(validade)) {
+            alert("Validade deve estar no formato MM/AA")
+            return
+        }
+
+        if (cvv.length !== 3) {
+            alert("CVV deve ter 3 dígitos")
+            return
+        }
+
+        if (!/^[A-ZÀ-Ÿ\s]+$/.test(nome)) {
+            alert("Nome do cartão deve conter apenas letras")
+            return
+        }
+    }
+
+    alert("Pagamento realizado com sucesso!")
+    goTo("sucesso")
+}
+
+function selecionarPagamento() {
+
+    const tipo = document.querySelector('input[name="pagamento"]:checked').value
+
+    document.getElementById("areaCartao").style.display =
+        tipo === "cartao" ? "block" : "none"
+
+    document.getElementById("areaPix").style.display =
+        tipo === "pix" ? "block" : "none"
+
+    if (tipo === "cartao") {
+
+        const campo = document.getElementById("numeroCartao")
+
+        campo.addEventListener("input", function(e) {
+
+            let valor = e.target.value.replace(/\D/g, "")
+
+            if (valor.length > 16) {
+                valor = valor.slice(0, 16)
+            }
+
+            valor = valor.replace(/(\d{4})(?=\d)/g, "$1 ")
+
+            e.target.value = valor
+        })
+
+    }
+}
+
+document.addEventListener("input", function(e) {
+
+
+    if (e.target.id === "cvvCartao") {
+        e.target.value = e.target.value.replace(/\D/g, "")
+    }
+
+})
+
+document.getElementById("validadeCartao").addEventListener("input", function(e) {
+
+    let valor = e.target.value.replace(/\D/g, "")
+
+    if (valor.length > 4) {
+        valor = valor.slice(0, 4)
+    }
+
+    if (valor.length > 2) {
+        valor = valor.replace(/(\d{2})(\d+)/, "$1/$2")
+    }
+
+    e.target.value = valor
+})
+
+
+document.getElementById("nomeCartao").addEventListener("input", function(e) {
+
+    let valor = e.target.value
+
+    // Remove tudo que não for letra ou espaço
+    valor = valor.replace(/[^a-zA-ZÀ-ÿ\s]/g, "")
+
+    // Remove espaços duplicados
+    valor = valor.replace(/\s+/g, " ")
+
+    // Deixa em maiúsculo
+    valor = valor.toUpperCase()
+
+    e.target.value = valor
+
+})
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const campoNumero = document.getElementById("numeroCartao")
+
+    if (campoNumero) {
+
+        campoNumero.addEventListener("input", function (e) {
+
+            let valor = e.target.value
+
+            // Remove tudo que não for número
+            valor = valor.replace(/\D/g, "")
+
+            // Limita a 16 números
+            valor = valor.substring(0, 16)
+
+            // Divide em grupos de 4
+            let grupos = valor.match(/.{1,4}/g)
+
+            if (grupos) {
+                valor = grupos.join(" ")
+            }
+
+            e.target.value = valor
+        })
+    }
+
+})
